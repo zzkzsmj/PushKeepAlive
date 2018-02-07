@@ -39,8 +39,8 @@ public class KeepLiveManager {
         mScreenListener = new ScreenReceiverUtil(context);
         mScreenManager = ScreenManager.getScreenManagerInstance(context);
         mScreenListener.setScreenReceiverListener(mScreenListenerer);
-
-        AccountSyncHelper.addMobileSafeAccount(mContext, PushUtils.SYNC_TIME);
+        if (mContext!=null)
+            AccountSyncHelper.addMobileSafeAccount(mContext, PushUtils.SYNC_TIME);
 
     }
     private void initJobScheduler(Context context){
@@ -50,7 +50,8 @@ public class KeepLiveManager {
         }
     }
     private void startKeepService(){
-        mContext.startService(new Intent(mContext, PushService.class));
+        if (mContext!=null)
+            mContext.startService(new Intent(mContext, PushService.class));
     }
 
     public void startKeepAlive(int channel){
@@ -64,12 +65,14 @@ public class KeepLiveManager {
     private ScreenReceiverUtil.SreenStateListener mScreenListenerer = new ScreenReceiverUtil.SreenStateListener() {
         @Override
         public void onSreenOn() {
-            mScreenManager.finishActivity();
+            if(mScreenManager!=null)
+                mScreenManager.finishActivity();
         }
 
         @Override
         public void onSreenOff() {
-            mScreenManager.startActivity();
+            if(mScreenManager!=null)
+                mScreenManager.startActivity();
         }
 
         @Override

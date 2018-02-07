@@ -18,6 +18,7 @@ public class JobSchedulerManager {
     private static JobSchedulerManager mJobManager;
     private JobScheduler mJobScheduler;
     private static Context mContext;
+    private static final long JOBTIME=3000;
 
     private JobSchedulerManager(Context ctxt){
         this.mContext = ctxt;
@@ -37,7 +38,7 @@ public class JobSchedulerManager {
             return;
         }
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID,new ComponentName(mContext, PushJobService.class));
-        builder.setPeriodic(3000);
+        builder.setPeriodic(JOBTIME);
 //        builder.setPersisted(true);
         builder.setRequiresCharging(true);
         JobInfo info = builder.build();

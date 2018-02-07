@@ -30,19 +30,28 @@ public class PushUtils {
 
     public static boolean checkAPPALive(Context mContext, String packageName) {
         boolean isAPPRunning = false;
-        ActivityManager activityManager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> appProcessInfoList = activityManager.getRunningAppProcesses();
-        for (ActivityManager.RunningAppProcessInfo appInfo : appProcessInfoList) {
-            if (packageName.equals(appInfo.processName)) {
-                isAPPRunning = true;
-                break;
+        if(mContext!=null){
+            ActivityManager activityManager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
+            if(activityManager!=null){
+                List<ActivityManager.RunningAppProcessInfo> appProcessInfoList = activityManager.getRunningAppProcesses();
+                if(appProcessInfoList!=null){
+                    for (ActivityManager.RunningAppProcessInfo appInfo : appProcessInfoList) {
+                        if (packageName.equals(appInfo.processName)) {
+                            isAPPRunning = true;
+                            break;
+                        }
+                    }
+                }
+                if(DEBUG_TAG)
+                    Log.d(TAG, "checkAPPALive:" + isAPPRunning);
             }
         }
-        Log.d(TAG, "checkAPPALive:" + isAPPRunning);
         return isAPPRunning;
     }
 
     public static void checkRequestsForPermissions(Context context) {
+        if(context==null)
+            return;
         mContext = context;
         if (!SPUtils.getInstance().getBoolean(NL_OPEN_REQUEST_SHOW_KET, false)
                 && ifNotifyPermissionsDenied(context))
@@ -53,7 +62,7 @@ public class PushUtils {
 //
     public static boolean ifNotifyPermissionsDenied(Context context) {
         boolean denied = false;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (context!=null&&Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (NotificationManagerCompat.from(context).areNotificationsEnabled())
                 return false;
             NotificationManager manager = (NotificationManager)
@@ -82,7 +91,8 @@ public class PushUtils {
     }
 
     public static void requestNLOpenPermissions(Context context) {
-
+        if(context==null)
+            return;
         final AlertDialog.Builder normalDialog =
                 new AlertDialog.Builder(context);
         normalDialog.setIcon(R.mipmap.ic_launcher);
@@ -111,6 +121,8 @@ public class PushUtils {
     }
 
     public static void requestNLReadWritePermissions(final Context context) {
+        if(context==null)
+            return;
         final AlertDialog.Builder normalDialog =
                 new AlertDialog.Builder(context);
         normalDialog.setIcon(R.mipmap.ic_launcher);

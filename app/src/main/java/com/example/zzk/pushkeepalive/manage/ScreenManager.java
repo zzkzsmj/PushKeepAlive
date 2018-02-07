@@ -36,11 +36,19 @@ public class ScreenManager {
     }
 
     public void startActivity(){
-        if (PushUtils.DEBUG_TAG)
-            Log.d(TAG,"start one...");
-        Intent intent = new Intent(mContext,SinglePixelActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        mContext.startActivity(intent);
+        try {
+            if (PushUtils.DEBUG_TAG)
+                Log.d(TAG,"start one...");
+            if (mContext!=null){
+                Intent intent = new Intent(mContext,SinglePixelActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+            }
+        }catch (SecurityException e){
+            if (PushUtils.DEBUG_TAG)
+                Log.d(TAG,"securityException...");
+        }
+
     }
 
     public void finishActivity(){

@@ -17,6 +17,10 @@ import com.example.zzk.pushkeepalive.utils.AliveChannel;
 
 public class SinglePixelActivity extends AppCompatActivity {
     private static final String TAG = "Alive";
+    private final int X=0;
+    private final int Y=0;
+    private final int HEIGHT=10;
+    private final int WIDTH=10;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,10 +29,10 @@ public class SinglePixelActivity extends AppCompatActivity {
         Window mWindow = getWindow();
         mWindow.setGravity(Gravity.LEFT | Gravity.TOP);
         WindowManager.LayoutParams attrParams = mWindow.getAttributes();
-        attrParams.x = 0;
-        attrParams.y = 0;
-        attrParams.height = 300;
-        attrParams.width = 300;
+        attrParams.x = X;
+        attrParams.y = Y;
+        attrParams.height = HEIGHT;
+        attrParams.width = HEIGHT;
         mWindow.setAttributes(attrParams);
         ScreenManager.getScreenManagerInstance(this).setSingleActivity(this);
     }

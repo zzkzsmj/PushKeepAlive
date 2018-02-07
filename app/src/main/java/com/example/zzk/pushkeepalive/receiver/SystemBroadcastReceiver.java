@@ -60,11 +60,13 @@ public class SystemBroadcastReceiver extends BroadcastReceiver {
         }
         if(ConnectivityManager.CONNECTIVITY_ACTION.equals(action)){
             ConnectivityManager manager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo gprs = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-            if(gprs.isConnected()){
-                Log.i(TAG,"NetworkBroadcast---->Mobile network open");
-            }else {
-                Log.i(TAG,"NetworkBroadcast---->Mobile network close");
+            if(manager!=null){
+                NetworkInfo gprs = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+                if(gprs!=null&&gprs.isConnected()){
+                    Log.i(TAG,"NetworkBroadcast---->Mobile network open");
+                }else {
+                    Log.i(TAG,"NetworkBroadcast---->Mobile network close");
+                }
             }
         }
     }
