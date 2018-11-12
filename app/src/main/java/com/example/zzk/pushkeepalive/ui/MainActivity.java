@@ -2,9 +2,13 @@ package com.example.zzk.pushkeepalive.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.zzk.pushkeepalive.R;
 import com.example.zzk.pushkeepalive.utils.PushUtils;
+
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         initData();
     }
     private void initView(){
+
 
     }
     private void initData(){
